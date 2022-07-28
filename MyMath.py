@@ -1,4 +1,4 @@
-
+    
 def my_transpose(arr):
 
     new_arr = [[0. for i in range(len(arr[0]))] for j in range(len(arr))]
