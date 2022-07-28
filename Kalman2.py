@@ -6,6 +6,7 @@ from filterpy.common import Q_discrete_white_noise
 import math
 import numpy as np
 from numpy.random import randn
+import DataManager as dm
 
 def compute_dog_data(z_var, process_var, count=1, dt=1.):
     "returns track, measurements 1D ndarrays"
@@ -65,7 +66,10 @@ if __name__ == "__main__":
     Q = Q_discrete_white_noise(dim=2, dt=dt, var=Q_var)
 
     count = 5
-    track, zs = compute_dog_data(R_var, Q_var, count)
+    # track, zs = compute_dog_data(R_var, Q_var, count)
+    datam = dm.Datamanager("raw_data.csv", std=True)
+
+    zs = datam
 
     xs, cov = [], []
 

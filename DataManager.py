@@ -52,6 +52,7 @@ class Datamanager:
                 if not self.delta_t:
                     self.delta_t = self.data[xx]['simulation_time_step']
                 xx += 1
+                
             self.end_t = xx
 
 
@@ -73,25 +74,22 @@ class Datamanager:
 
 
 
+if __name__ == "__main__":
+    dm = Datamanager("raw_data.csv", std=True)
 
-dm = Datamanager("raw_data.csv", std=True)
-
-alt = []
-alt2 = []
-alt1 = []
-c = 0
-t = []
-while c <= dm.end_t-1:
-    alt.append(dm.data[c]['vertical_velocity'])
-    # alt2.append(dm._get_value_noise(c, "yaw_rate", 1))
-    t.append(dm.data[c]['time'])
-    c += 1
-# print(alt)s
+    alt = []
+    alt2 = []
+    c = 0
+    t = []
+    while c <= dm.end_t-1:
+        alt.append(dm.data[c]['air_pressure'])
+        alt2.append(dm._get_value_noise(c, "air_pressure", 100))
+        t.append(dm.data[c]['time'])
+        c += 1
 
 
 fig, ax = plt.subplots()
 ax.plot(t, alt, linewidth=2.0)
-# ax.plot(t, alt1, linewidth=2.0)
-# ax.plot(t, alt2, linewidth=2.0)
-# ax.plot(t, alt2, linewidth=2.0)
+ax.plot(t, alt2, linewidth=2.0)
 plt.show()
+
