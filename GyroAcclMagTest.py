@@ -25,9 +25,12 @@ def quaternion_to_euler_angle_vectorized1(w, x, y, z):
     return X, Y, Z
 
 if 1:
-    gyr_raw = csv.reader(open("data/nomovelong/GyroscopeUncalibrated.csv"))
-    acc_raw = csv.reader(open("data/nomovelong/AccelerometerUncalibrated.csv"))
-    mag_raw = csv.reader(open("data/nomovelong/MagnetometerUncalibrated.csv"))
+    gyr_raw = csv.reader(open("data/nomovelong/Gyroscope.csv"))
+    acc_raw = csv.reader(open("data/nomovelong/Accelerometer.csv"))
+    mag_raw = csv.reader(open("data/nomovelong/Magnetometer.csv"))
+    # gyr_raw = csv.reader(open("data/nomovelong/GyroscopeUncalibrated.csv"))
+    # acc_raw = csv.reader(open("data/nomovelong/AccelerometerUncalibrated.csv"))
+    # mag_raw = csv.reader(open("data/nomovelong/MagnetometerUncalibrated.csv"))
 elif 1:
     gyr_raw = csv.reader(open("data/chairspin/GyroscopeUncalibrated.csv"))
     acc_raw = csv.reader(open("data/chairspin/AccelerometerUncalibrated.csv"))
@@ -84,9 +87,9 @@ fo_eu = [quaternion_to_euler_angle_vectorized1(x[0], x[1], x[2], x[3]) for x in 
 # ax.plot(mag_time, [x[0] for x in fo_eu], linewidth=2.0, label="x_fo")
 # ax.plot(mag_time, [x[1] for x in fo_eu], linewidth=2.0, label="y_fo")
 # ax.plot(mag_time, [x[2] for x in fo_eu], linewidth=2.0, label="z_fo")
-ax.plot(mag_time, [x[0] for x in acc_arr], linewidth=2.0, label="x_ka")
-ax.plot(mag_time, [x[1] for x in acc_arr], linewidth=2.0, label="y_ka")
-ax.plot(mag_time, [x[2] for x in acc_arr], linewidth=2.0, label="z_ka")
+ax.plot(mag_time, [x[0] for x in ka_eu], linewidth=2.0, label="x_ka")
+ax.plot(mag_time, [x[1] for x in ka_eu], linewidth=2.0, label="y_ka")
+ax.plot(mag_time, [x[2] for x in ka_eu], linewidth=2.0, label="z_ka")
 # ax.plot(t, alt1, linewidth=2.0)
 # ax.plot(t, alt2, linewidth=2.0)
 # ax.plot(t, alt2, linewidth=2.0)
