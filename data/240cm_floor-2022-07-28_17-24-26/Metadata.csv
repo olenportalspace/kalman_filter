@@ -1,0 +1,2 @@
+version,device name,recording time,platform,appVersion,device id,sensors,sampleRateMs
+3,SM-A528B,2022-07-28_17-24-26,android,1.10.1,d91c7230-c6d4-469d-8cf4-2da10d3ca0e7,Accelerometer|Gravity|Gyroscope|Magnetometer|Annotation|TotalAcceleration|MagnetometerUncalibrated|GyroscopeUncalibrated|AccelerometerUncalibrated,10|10|10|10||10|10|10|10
