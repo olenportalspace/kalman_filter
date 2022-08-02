@@ -48,16 +48,20 @@ if __name__ == "__main__":
     Q_var = 0.01
 
     # initial state and covariance
-    x   = np.array([[10], [4.5]])
-    P   = np.array([[500., 0.], [0., 49.]])
+    x   = np.array([[0.], [0], [0]])
+    P   = np.array([[500., 0., 0.], [0., 1020., 0.], [0., 0., 150]])
     
-    
+    # maks topfart til raketten: 330
+    # maks aksellerasjon til raketten: 50
+
     # prediction
-    dt  = 1.
-    F   = np.array([[1., dt], [0., 1.]])
+    dt  = 0.1
+    F   = np.array([[1., dt, 0.], 
+                    [0., 1., dt], 
+                    [0., 0., 1.]])
 
     # revert back to measurement
-    H   = np.array([[1., 0.]])
+    H   = np.array([[1., 0., 0.]])
 
     # measurement uncertainty
     R = [[R_var]]
@@ -72,7 +76,19 @@ if __name__ == "__main__":
     zs = datam
 
     xs, cov = [], []
-
+    # forløkke med 100 iterasjoner
+    for i in range(100):
+        # predict
+        x, P = my_predict(x, P, F, Q)
+        # update
+        # målinger
+        # gyro, acco, magnetometer => quaternian
+        
+        x, P = my_update(zs[i], x, P, R, H)
+        # save
+        xs.append(x)
+        cov.append(P)
+    
     for z in zs:
         x, P = my_predict(x, P, F, Q)
 
@@ -82,30 +98,31 @@ if __name__ == "__main__":
         cov.append(P)
 
 
-    x   = np.array([[10], [4.5]])
-    P   = np.array([[500., 0.], [0., 49.]])
-    xs2, cov2 = [], []
-    for z in zs:
-        # predict
-        x = F @ x
-        P = F @ P @ F.T + Q
-        
-        #update
-        S = H @ P @ H.T + R
-        K = P @ H.T @ np.linalg.inv(S)
-        y = z - H @ x
-
-        x += K @ y
-        P = P - K @ H @ P
-        
-        xs2.append(x)
-        cov2.append(P)
     
     print(xs)
-    print(xs2)
     print("\n")
     print(cov)
-    print(cov2)
     
 
 
+"""
+Bare litt sånn her fordi sånn ser matten ut:
+"""
+# x   = np.array([[10], [4.5]])
+# P   = np.array([[500., 0.], [0., 49.]])
+# xs2, cov2 = [], []
+# for z in zs:
+#     # predict
+#     x = F @ x
+#     P = F @ P @ F.T + Q
+    
+#     #update
+#     S = H @ P @ H.T + R
+#     K = P @ H.T @ np.linalg.inv(S)
+#     y = z - H @ x
+
+#     x += K @ y
+#     P = P - K @ H @ P
+    
+#     xs2.append(x)
+#     cov2.append(P)
