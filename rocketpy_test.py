@@ -2,7 +2,7 @@ from numpy import angle
 from rocketpy import Environment, SolidMotor, Rocket, Flight
 import matplotlib.pyplot as plt
 import datetime
-import DataManager as dm
+import numpy as np
 # %matplotlib widget
 
 Env = Environment(
@@ -91,17 +91,48 @@ Drogue = Calisto.addParachute(
 
 TestFlight = Flight(rocket=Calisto, environment=Env, inclination=90, heading=0)
 
-
 TestFlight.exportKML(
     fileName="trajectory.kml",
     extrude=True,
     altitudeMode="relativetoground",
 )
 
+# TestFlight.
 
 
 fig, ax = plt.subplots()
-ax.plot([x[0] for x in TestFlight.az], [x[1] for x in TestFlight.az], linewidth=2.0)
+ax.plot([x[0] for x in TestFlight.az], [x[1] for x in TestFlight.az], linewidth=2.0, label="az")
+plt.title("Up")
+plt.show()
+
+
+fig, ax = plt.subplots()
+ax.plot([x[0] for x in TestFlight.ay], [x[1] for x in TestFlight.ay], linewidth=2.0, label="ay")
+plt.title("y")
+plt.show()
+
+fig, ax = plt.subplots()
+ax.plot([x[0] for x in TestFlight.ax], [x[1] for x in TestFlight.ax], linewidth=2.0, label="ax")
+plt.title("x")
+plt.show()
+
+fig, ax = plt.subplots()
+ax.plot([x[0] for x in TestFlight.ax], [x[1] for x in TestFlight.ax], linewidth=2.0, label="ax")
+plt.title("x")
+plt.show()
+
+thaspeed = np.asarray(TestFlight.speed)
+
+
+# print thaspeed as graph where first column is time and second is speed
+fig, ax = plt.subplots()
+ax.plot([x[0] for x in thaspeed], [x[1] for x in thaspeed], linewidth=2.0, label="speed")
+plt.title("speed")
+plt.show()
+
+
+
+
 # ax.plot([x[0] for x in TestFlight.attitudeVectorY], [x[1] for x in TestFlight.attitudeVectorY], linewidth=2.0)
 # ax.plot([x[0] for x in TestFlight.attitudeVectorZ], [x[1] for x in TestFlight.attitudeVectorZ], linewidth=2.0)
 
